@@ -20,6 +20,7 @@ const Anecdote = ({anecdote, points}) => {
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+  const [mostVoted, setMostVoted] = useState(0)
 
   const randomInt = (min, max) => {
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -38,13 +39,19 @@ const App = (props) => {
     let copy = [...votes]
     copy[selected]++
     setVotes(copy)
+    // Also update the most voted index
+    // First index of maximum votes. Does not care if some other anecdote has the same amount, nor if there are no votes yet.
+    setMostVoted(copy.indexOf(Math.max(...copy)))
   }
 
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       <Anecdote anecdote={props.anecdotes[selected]} points={votes[selected]} />
       <Button handleClick={() => handleVoteClick()} text='vote' />
       <Button handleClick={() => handleNextClick(anecdotes.length)} text='next' />
+      <h2>Anecdote with the most votes</h2>
+      <Anecdote anecdote={props.anecdotes[mostVoted]} points={votes[mostVoted]} />
     </div>
   )
 }
