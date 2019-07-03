@@ -7,8 +7,19 @@ const Button = ({handleClick, text}) => {
   )
 }
 
+const Anecdote = ({anecdote, points}) => {
+  return (
+    <div>
+      {anecdote}
+      <br />
+      has {points} votes
+    </div>
+  )
+}
+
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
   const randomInt = (min, max) => {
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -19,15 +30,20 @@ const App = (props) => {
     // make sure current and next are different
     do {
       next = randomInt(0, len -1)
-      console.log(next)
     } while (selected === next)
     setSelected(next)
   }
 
+  const handleVoteClick = () => {
+    let copy = [...votes]
+    copy[selected]++
+    setVotes(copy)
+  }
+
   return (
     <div>
-      {props.anecdotes[selected]}
-      <br />
+      <Anecdote anecdote={props.anecdotes[selected]} points={votes[selected]} />
+      <Button handleClick={() => handleVoteClick()} text='vote' />
       <Button handleClick={() => handleNextClick(anecdotes.length)} text='next' />
     </div>
   )
