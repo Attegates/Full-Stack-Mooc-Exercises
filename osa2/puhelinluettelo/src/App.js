@@ -13,16 +13,22 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
+    
+    if (persons.filter(person => (person.name === newName)).length > 0) {
+      alert(`${newName} is already added`)
+      return
+    }    
+
     const newPerson = {
       name: newName
     }
+
     setPersons(persons.concat(newPerson))
     setNewName('')
   }
 
   const handlePersonNameChange = (event) => {
     setNewName(event.target.value)
-    console.log(event.target.value)
   }
 
   return (
