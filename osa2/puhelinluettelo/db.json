@@ -1,0 +1,19 @@
+{
+  "persons":[
+    { 
+      "name": "Atte Gates", 
+      "number": "040-123456",
+      "id": 1
+    },
+    { 
+      "name": "Bill Gates", 
+      "number": "123123123",
+      "id": 2
+    },
+    { 
+      "name": "Gill Bates", 
+      "number": "666",
+      "id": 3
+    }
+  ]
+}

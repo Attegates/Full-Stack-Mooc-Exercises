@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 import AddPersonForm from './components/AddPersonForm'
 import Persons from './components/Persons'
 import FilterForm from './components/FilterForm'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Atte Gates', number: '123' },
-    { name: 'Bill Gates', number: '321' },
-    { name: 'Gill Bates', number: '000' }
-  ])
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('testi')
   const [newNumber, setNewNumber] = useState('001')
   const [filterBy, setFilterBy] = useState('')
   const [filteredPersons, setFilteredPersons] = useState(persons);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      })
+  }, [])
 
   // Use effect to handle filterBy, filteredPersons or persons changes.
   useEffect(() => {
