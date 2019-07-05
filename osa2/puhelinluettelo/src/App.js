@@ -22,8 +22,9 @@ const App = () => {
 
   // Use effect to handle filterBy, filteredPersons or persons changes.
   useEffect(() => {
+    console.log('does this loop??')
     filterBy.length === 0 ? setFilteredPersons(persons) : setFilteredPersons(persons.filter(person => (person.name.toLowerCase().includes(filterBy.toLowerCase()))))
-  }, [filterBy, filteredPersons, persons]);
+  }, [filterBy, persons]);
 
 
   const addPerson = (event) => {
