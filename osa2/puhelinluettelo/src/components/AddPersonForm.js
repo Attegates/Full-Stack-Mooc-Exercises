@@ -9,6 +9,9 @@ const AddPersonForm = (props/*{ onSubmit, onNameChange, newName }*/) => {
         name: <input onChange={props.onNameChange} value={props.newName} />
       </div>
       <div>
+        number: <input onChange={props.onNumberChange} value={props.newNumber} />
+      </div>
+      <div>
         <button type="submit">add</button>
       </div>
     </form>
