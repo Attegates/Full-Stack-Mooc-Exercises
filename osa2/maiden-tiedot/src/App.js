@@ -20,12 +20,10 @@ function App() {
 
   
   useEffect(() => {
-    console.log("set filtered countries")
     setFilteredCountries(countries.filter(country => country.name.toLowerCase().includes(countryFilter.toLowerCase())))
   }, [countries, countryFilter])
 
   const handleFilterChange = (event) => {
-    console.log("filter change event")
     setCountryFilter(event.target.value)
   }
 

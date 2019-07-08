@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Weather from './Weather'
+
 const Languages = ({ languages }) => {
   const rows = () => languages.map(language =>
     <li key={language.name}>
@@ -34,6 +36,9 @@ const CountryDetails = ({name, capital, population, languages, flagUrl }) => {
       />
       <Flag
         flagUrl={flagUrl}
+      />
+      <Weather
+      city={capital}
       />
     </div>
   )
