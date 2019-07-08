@@ -22,7 +22,7 @@ const Flag = ({ flagUrl }) => {
   )
 }
 
-const CountryDetails = ({ name, capital, population, languages, flagUrl }) => {
+const CountryDetails = ({name, capital, population, languages, flagUrl }) => {
   return (
     <div>
       <h2>{name}</h2>
@@ -40,23 +40,32 @@ const CountryDetails = ({ name, capital, population, languages, flagUrl }) => {
 }
 
 const CountryList = ({ countries }) => {
+
+  const createDetails = (id) => {
+    document.getElementById(id).style.display = document.getElementById(id).style.display !== "none" ? "none" : "inline"
+  }
+
   const rows = () => countries.map(country => {
+    let style = {
+      display: 'none',
+    };
     return (
-      <p key={country.name}>
-        {country.name}
-      </p>
-      /*
-      <div>
-        <CountryDetails
-          key={country.name}
-          name={country.name}
-          capital={country.capital}
-          population={country.population}
-          languages={country.languages}
-          flagUrl={country.flag}
-        />
+      <div key={country.name}>
+        <p>
+          {country.name}
+          <button type="button" onClick={() => createDetails(country.name)}>show</button>
+        </p>
+        <div id={country.name} style={style}>
+          <CountryDetails
+            id={country.name}
+            name={country.name}
+            capital={country.capital}
+            population={country.population}
+            languages={country.languages}
+            flagUrl={country.flag}
+          />
+        </div>
       </div>
-      */
     )
   }
   )
