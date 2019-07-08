@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 
 import AddPersonForm from './components/AddPersonForm'
 import Persons from './components/Persons'
 import FilterForm from './components/FilterForm'
+
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -13,11 +14,9 @@ const App = () => {
   const [filteredPersons, setFilteredPersons] = useState(persons);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
-      })
+    personService
+      .getAll()
+      .then(initialPersons => setPersons(initialPersons))
   }, [])
 
   // Use effect to handle filterBy, filteredPersons or persons changes.
@@ -40,11 +39,17 @@ const App = () => {
       number: newNumber
     }
 
-    setPersons(persons.concat(newPerson))
+    personService
+      .create(newPerson)
+      .then(returnedNewPerson => {
+        setPersons(persons.concat(returnedNewPerson))
+        setNewName('')
+        setNewNumber('')
+      })
+
+    //setPersons(persons.concat(newPerson))
     // Use effect instead. persons might not be updated yet if this happens here.
     //filterBy.length === 0 ? setFilteredPersons(persons) : setFilteredPersons(persons.filter(person => (person.name.toLowerCase().includes(filterBy.toLowerCase()))))
-    setNewName('')
-    setNewNumber('')
   }
 
   const handlePersonNameChange = (event) => {
