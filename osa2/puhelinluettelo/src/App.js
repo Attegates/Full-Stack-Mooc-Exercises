@@ -19,7 +19,7 @@ const App = () => {
       .then(initialPersons => setPersons(initialPersons))
   }, [])
 
-  // Use effect to handle filterBy, filteredPersons or persons changes.
+  // Use effect to handle filterBy or persons change.
   useEffect(() => {
     console.log('does this loop??')
     filterBy.length === 0 ? setFilteredPersons(persons) : setFilteredPersons(persons.filter(person => (person.name.toLowerCase().includes(filterBy.toLowerCase()))))
@@ -46,11 +46,24 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
-
-    //setPersons(persons.concat(newPerson))
-    // Use effect instead. persons might not be updated yet if this happens here.
-    //filterBy.length === 0 ? setFilteredPersons(persons) : setFilteredPersons(persons.filter(person => (person.name.toLowerCase().includes(filterBy.toLowerCase()))))
   }
+
+  const deletePerson = (id) => {
+    const person = persons.find(p => p.id === id)
+
+    if (!window.confirm(`Delete ${person.name} ?`)) {
+      return
+    }
+
+    personService.deletePerson(id)
+      .then(() => {
+        setPersons(persons.filter(p => p.id !== id))
+      })
+      .catch(error => {
+        alert(error)
+      })
+  }
+
 
   const handlePersonNameChange = (event) => {
     setNewName(event.target.value)
@@ -78,7 +91,7 @@ const App = () => {
         newNumber={newNumber}
       />
       <h3>Numbers</h3>
-      <Persons persons={filteredPersons} />
+      <Persons persons={filteredPersons} deleteClickHandler={deletePerson} />
     </div>
   )
 

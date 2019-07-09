@@ -2,21 +2,23 @@ import React from 'react'
 
 const Person = ({ name, number }) => {
   return (
-    <p>{name} {number}</p>
+    <span>{name} {number}</span>
   )
 }
 
-const Persons = ({ persons }) => {
+const Persons = ({ persons, deleteClickHandler }) => {
   const rows = () => persons.map(person =>
-    <Person
-      key={person.name}
-      name={person.name}
-      number={person.number}
-    />
+    <div key={person.name}>
+      <Person
+        name={person.name}
+        number={person.number}
+      />
+      <button onClick={() => deleteClickHandler(person.id)}>delete</button>
+    </div>
   )
   return (
     <div>
-      {rows()}      
+      {rows()}
     </div>
   )
 }
