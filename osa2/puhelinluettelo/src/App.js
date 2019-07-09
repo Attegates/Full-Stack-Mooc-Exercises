@@ -77,7 +77,14 @@ const App = () => {
         }, 5000)
       })
       .catch(error => {
-        alert(error)
+        setMessage({
+          message: `Error! Information of ${person.name} has been removed from the server!`,
+          isError: true
+        })
+        // Also update persons since a changes have been made at this point.
+        personService
+          .getAll()
+          .then(initialPersons => setPersons(initialPersons))
       })
   }
 
