@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import AddPersonForm from './components/AddPersonForm'
 import Persons from './components/Persons'
 import FilterForm from './components/FilterForm'
+import Notification from './components/Notification'
 
 import personService from './services/persons'
 
@@ -12,6 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('001')
   const [filterBy, setFilterBy] = useState('')
   const [filteredPersons, setFilteredPersons] = useState(persons);
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -48,6 +50,13 @@ const App = () => {
         setPersons(persons.concat(returnedNewPerson))
         setNewName('')
         setNewNumber('')
+        setMessage({
+          message: `Succesfully added ${returnedNewPerson.name}`,
+          isError: false
+        })
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
   }
 
@@ -55,15 +64,23 @@ const App = () => {
 
     const person = persons.find(p => p.name === newName)
     const changedPerson = { ...person, number: newNumber }
-    
+
     personService.update(person.id, changedPerson)
       .then(returnedPerson => {
         setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
+        setMessage({
+          message: `Succesfully updated number of ${person.name} from ${person.number} to ${returnedPerson.number}`,
+          isError: false
+        })
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
       .catch(error => {
         alert(error)
       })
   }
+
 
   const deletePerson = (id) => {
     const person = persons.find(p => p.id === id)
@@ -75,6 +92,13 @@ const App = () => {
     personService.deletePerson(id)
       .then(() => {
         setPersons(persons.filter(p => p.id !== id))
+        setMessage({
+          message: `Succesfully removed ${person.name}`,
+          isError: false
+        })
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
       .catch(error => {
         alert(error)
@@ -97,6 +121,9 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification
+        message={message}
+      />
       <FilterForm
         onFilterByChange={handleFilterByChange}
       />
