@@ -21,7 +21,6 @@ const App = () => {
 
   // Use effect to handle filterBy or persons change.
   useEffect(() => {
-    console.log('does this loop??')
     filterBy.length === 0 ? setFilteredPersons(persons) : setFilteredPersons(persons.filter(person => (person.name.toLowerCase().includes(filterBy.toLowerCase()))))
   }, [filterBy, persons]);
 
@@ -30,8 +29,12 @@ const App = () => {
     event.preventDefault()
 
     if (persons.filter(person => (person.name === newName)).length > 0) {
-      alert(`${newName} is already added`)
-      return
+      if (window.confirm(`${newName} is already added. Replace the old number?`)) {
+        updatePerson()
+        return
+      } else {
+        return
+      }
     }
 
     const newPerson = {
@@ -45,6 +48,20 @@ const App = () => {
         setPersons(persons.concat(returnedNewPerson))
         setNewName('')
         setNewNumber('')
+      })
+  }
+
+  const updatePerson = () => {
+
+    const person = persons.find(p => p.name === newName)
+    const changedPerson = { ...person, number: newNumber }
+    
+    personService.update(person.id, changedPerson)
+      .then(returnedPerson => {
+        setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
+      })
+      .catch(error => {
+        alert(error)
       })
   }
 
