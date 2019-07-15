@@ -10,7 +10,7 @@ import personService from './services/persons'
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('testi')
-  const [newNumber, setNewNumber] = useState('001')
+  const [newNumber, setNewNumber] = useState('00110')
   const [filterBy, setFilterBy] = useState('')
   const [filteredPersons, setFilteredPersons] = useState(persons);
   const [message, setMessage] = useState(null)
@@ -53,6 +53,15 @@ const App = () => {
         setMessage({
           message: `Succesfully added ${returnedNewPerson.name}`,
           isError: false
+        })
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      })
+      .catch(error => {
+        setMessage({
+          message: `${error.response.data.error}`,
+          isError: true
         })
         setTimeout(() => {
           setMessage(null)
