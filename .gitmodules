@@ -1,3 +1,6 @@
 [submodule "osa2/puhelinluettelo/Full-Stack-Mooc-phonebook-backend"]
 	path = osa3/Full-Stack-Mooc-phonebook-backend
 	url = https://github.com/Attegates/Full-Stack-Mooc-phonebook-backend
+[submodule "osa4/Full-Stack-Mooc-blog-backend"]
+	path = osa4/Full-Stack-Mooc-blog-backend
+	url = https://github.com/Attegates/Full-Stack-Mooc-blog-backend.git
