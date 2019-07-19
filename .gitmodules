@@ -4,3 +4,6 @@
 [submodule "osa4/Full-Stack-Mooc-blog-backend"]
 	path = osa4/Full-Stack-Mooc-blog-backend
 	url = https://github.com/Attegates/Full-Stack-Mooc-blog-backend.git
+[submodule "osa5/Full-Stack-Mooc-blog-frontend"]
+	path = osa5/Full-Stack-Mooc-blog-frontend
+	url = https://github.com/Attegates/Full-Stack-Mooc-blog-frontend.git
