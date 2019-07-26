@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 const Notification = ({ message }) => {
   const style = {
@@ -16,4 +17,10 @@ const Notification = ({ message }) => {
   return null
 }
 
-export default Notification
+export default connect(
+  (state) => {
+    return {
+      message: state.notificationReducer
+    }
+  }
+)(Notification)
