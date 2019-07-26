@@ -26,11 +26,13 @@ const addVote = (id) => {
   }
 }
 
-const createAnecdote = (data) => {
-  console.log(data)
-  return {
-    type: 'NEW_ANECDOTE',
-    data,
+const createAnecdote = (content) => {
+  return async (dispatch) => {
+    const newAnecdote = await anecdoteService.create(content)
+    dispatch({
+      type: 'NEW_ANECDOTE',
+      data: newAnecdote,
+    })
   }
 }
 
