@@ -41,7 +41,7 @@ const AnecdoteList = (props) => {
     <div>
       <h2>Anecdotes</h2>
       <Notification message={notification} />
-      {/*<Filter store={store} />*/}
+      {<Filter />}
       {anecdoteList()}
     </div>
   )
