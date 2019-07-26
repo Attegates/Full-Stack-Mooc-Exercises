@@ -7,7 +7,6 @@ import Filter from './Filter'
 
 const AnecdoteList = (props) => {
   const anecdotes = props.anecdotes
-  const filter = props.filter
 
   const vote = (id) => {
     props.addVote(id)
@@ -23,15 +22,13 @@ const AnecdoteList = (props) => {
   const anecdoteList = () => {
     anecdotes.sort((a, b) => b.votes - a.votes)
     return (
-      anecdotes
-        .filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase()))
-        .map(anecdote =>
-          <Anecdote
-            key={anecdote.id}
-            anecdote={anecdote}
-            handleVoteClick={handleVoteClick}
-          />
-        )
+      anecdotes.map(anecdote =>
+        <Anecdote
+          key={anecdote.id}
+          anecdote={anecdote}
+          handleVoteClick={handleVoteClick}
+        />
+      )
     )
   }
 
@@ -44,10 +41,15 @@ const AnecdoteList = (props) => {
 
 }
 
+const filterAnecdotes = (anecdotes, filter) => {
+  return anecdotes.filter(a =>
+    a.content.toLowerCase().includes(filter.toLowerCase())
+  )
+}
+
 const mapStateToProps = (state) => {
   return {
-    anecdotes: state.anecdoteReducer,
-    filter: state.filterReducer,
+    anecdotes: filterAnecdotes(state.anecdoteReducer, state.filterReducer),
   }
 
 }
