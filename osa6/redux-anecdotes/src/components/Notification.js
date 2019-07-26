@@ -1,16 +1,19 @@
 import React from 'react'
 
-const Notification = () => {
+const Notification = ({ message }) => {
   const style = {
     border: 'solid',
     padding: 10,
     borderWidth: 1
   }
-  return (
-    <div style={style}>
-      render here notification...
-    </div>
-  )
+  if (message !== null) {
+    return (
+      <div style={style}>
+        {message}
+      </div>
+    )
+  }
+  return null
 }
 
 export default Notification
