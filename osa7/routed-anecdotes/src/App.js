@@ -139,7 +139,7 @@ const App = () => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
     setNotification(`new anecdote ${anecdote.content} created.`)
-    setTimeout(() => setNotification(null), 5000)
+    setTimeout(() => setNotification(null), 10000)
   }
 
   const anecdoteById = (id) =>
