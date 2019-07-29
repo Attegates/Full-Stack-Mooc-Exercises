@@ -8,13 +8,13 @@ import Filter from './Filter'
 const AnecdoteList = (props) => {
   const anecdotes = props.anecdotes
 
-  const vote = (id) => {
-    props.addVote(id)
+  const vote = (anecdote) => {
+    props.addVote(anecdote)
   }
 
-  const handleVoteClick = (id, content) => {
-    vote(id)
-    props.setNotification(`You voted '${content}'`)
+  const handleVoteClick = (anecdote) => {
+    vote(anecdote)
+    props.setNotification(`You voted '${anecdote.content}'`)
     setTimeout(() => props.resetNotification(), 5000)
   }
 
@@ -51,7 +51,6 @@ const mapStateToProps = (state) => {
   return {
     anecdotes: filterAnecdotes(state.anecdoteReducer, state.filterReducer),
   }
-
 }
 
 const mapDispatchToProps = {
