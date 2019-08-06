@@ -62,21 +62,22 @@ const resolvers = {
     authorCount: () => { return Author.collection.countDocuments() },
 
     allBooks: (root, args) => {
-      /*
       if (!args.author && !args.genre) {
-        return books
+        return Book.find({})
       }
       if (args.author && args.genre) {
-        return books.filter(b => (b.author === args.author && b.genres.includes(args.genre)))
+        // TODO
+        return Book.find({})
+        //return books.filter(b => (b.author === args.author && b.genres.includes(args.genre)))
       }
       if (args.author) {
-        return books.filter(b => b.author === args.author)
+        // TODO
+        return Book.find({})
+        //return books.filter(b => b.author === args.author)
       }
       if (args.genre) {
-        return books.filter(b => b.genres.includes(args.genre))
+        return Book.find({ genres: { $in: [args.genre] } })
       }
-      */
-     return Book.find({})
     },
     allAuthors: () => {
       return Author.find({})
@@ -99,10 +100,10 @@ const resolvers = {
 
   Mutation: {
     addBook: async (root, args) => {
-      let author = await Author.findOne({name: args.author})
+      let author = await Author.findOne({ name: args.author })
       // Create new author if it does not exist.
       if (!author) {
-        author = new Author({name: args.author})
+        author = new Author({ name: args.author })
         await author.save()
       }
 
@@ -114,22 +115,15 @@ const resolvers = {
       })
 
       await book.save()
-
-      console.log(author)
-      console.log(book)
-
       return book
     },
-    editAuthor: (root, args) => {
-      /*
-      const author = authors.find(a => a.name === args.name)
+    editAuthor: async (root, args) => {
+      const author = await Author.findOne({ name: args.name })
       if (!author) {
         return null
       }
-      const updatedAuthor = { ...author, born: args.setBornTo }
-      authors = authors.map(a => a.name === args.name ? updatedAuthor : a)
+      const updatedAuthor = await Author.findByIdAndUpdate(author.id, { born: args.setBornTo }, { new: true })
       return updatedAuthor
-      */
     }
   }
 }
