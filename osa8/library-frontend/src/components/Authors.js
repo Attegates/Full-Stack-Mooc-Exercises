@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import queries from '../graphql/queries'
-
+import AuthorBirthYearForm from './AuthorBirthYearForm'
 
 const Authors = (props) => {
   const result = useQuery(queries.ALL_AUTHORS)
@@ -9,11 +9,11 @@ const Authors = (props) => {
   if (!props.show) {
     return null
   }
-  
+
   if (result.loading) {
     return <div>loading...</div>
   }
-  
+
   const authors = result.data.allAuthors
 
   return (
@@ -40,7 +40,8 @@ const Authors = (props) => {
           )}
         </tbody>
       </table>
-
+      <h3>Set birthyear</h3>
+      <AuthorBirthYearForm />
     </div>
   )
 }
