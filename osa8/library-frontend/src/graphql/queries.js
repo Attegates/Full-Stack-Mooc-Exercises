@@ -20,10 +20,13 @@ const ADD_BOOK = gql`
       genres: $genres
     ) {
       title
-      author
       published
       genres
       id
+      author {
+        name
+        id
+      }
     }
   }
 `
@@ -37,6 +40,7 @@ const ALL_BOOKS = gql`
     id
     author {
       name
+      id
     }
   }
 }
@@ -52,9 +56,18 @@ const EDIT_AUTHOR = gql`
   }
 `
 
+const LOGIN = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      value
+    }
+  }
+`
+
 export default {
   ALL_AUTHORS,
   ALL_BOOKS,
   ADD_BOOK,
-  EDIT_AUTHOR
+  EDIT_AUTHOR,
+  LOGIN
 }

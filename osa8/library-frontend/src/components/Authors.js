@@ -40,8 +40,10 @@ const Authors = (props) => {
           )}
         </tbody>
       </table>
-      <h3>Set birthyear</h3>
-      <AuthorBirthYearForm authors={authors}/>
+      <div style={props.showEditAuthor} >
+        <h3>Set birthyear</h3>
+        <AuthorBirthYearForm authors={authors} />
+      </div>
     </div>
   )
 }
