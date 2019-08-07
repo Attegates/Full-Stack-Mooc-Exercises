@@ -107,9 +107,8 @@ const resolvers = {
 
   Author: {
     bookCount: (root) => {
-      //return books.filter(b => b.author === root.name).length
-      // TODO
-      return 0
+      const authorId = new mongoose.Types.ObjectId(root.id)
+      return Book.collection.countDocuments({ author: authorId })
     }
   },
 
