@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import queries from '../graphql/queries'
-
+import { genres as genreList } from '../constants/genres'
 
 
 const NewBook = (props) => {
   const [title, setTitle] = useState('')
   const [author, setAuhtor] = useState('')
   const [published, setPublished] = useState('')
-  const [genre, setGenre] = useState('')
+  const [genre, setGenre] = useState(genreList[0])
   const [genres, setGenres] = useState([])
 
   const handleError = (error) => {
@@ -73,10 +73,11 @@ const NewBook = (props) => {
           />
         </div>
         <div>
-          <input
-            value={genre}
-            onChange={({ target }) => setGenre(target.value)}
-          />
+          <select onChange={({ target }) => setGenre(target.value)}>
+            {genreList.map(g =>
+              <option key={g} value={g}>{g}</option>
+            )}
+          </select>
           <button onClick={addGenre} type="button">add genre</button>
         </div>
         <div>
