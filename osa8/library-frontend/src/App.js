@@ -12,7 +12,6 @@ const App = () => {
   const [token, setToken] = useState(null)
   const showWhenLoggedIn = token ? { display: '' } : { display: 'none' }
   const showWhenLoggedOut = token ? { display: 'none' } : { display: '' }
-  console.log(showWhenLoggedIn)
 
   useEffect(() => {
     const loggedInUserToken = window.localStorage.getItem('library-user-token')
