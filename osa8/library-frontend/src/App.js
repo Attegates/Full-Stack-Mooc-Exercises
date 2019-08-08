@@ -3,8 +3,9 @@ import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient, useSubscription } from '@apollo/react-hooks'
 import RecommendedBooks from './components/RecommendedBooks'
+import BOOK_ADDED from './graphql/bookAdded'
 
 const App = () => {
   const client = useApolloClient()
@@ -17,6 +18,12 @@ const App = () => {
     const loggedInUserToken = window.localStorage.getItem('library-user-token')
     setToken(loggedInUserToken)
   }, [])
+
+  useSubscription(BOOK_ADDED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      console.log(subscriptionData)
+    }
+  })
 
   const logout = () => {
     setToken(null)
