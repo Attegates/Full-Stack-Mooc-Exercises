@@ -69,5 +69,5 @@ export default {
   ALL_BOOKS,
   ADD_BOOK,
   EDIT_AUTHOR,
-  LOGIN
+  LOGIN,
 }

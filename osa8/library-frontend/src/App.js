@@ -4,7 +4,7 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
 import { useApolloClient } from '@apollo/react-hooks'
-
+import RecommendedBooks from './components/RecommendedBooks'
 
 const App = () => {
   const client = useApolloClient()
@@ -16,7 +16,7 @@ const App = () => {
   useEffect(() => {
     const loggedInUserToken = window.localStorage.getItem('library-user-token')
     setToken(loggedInUserToken)
-  },[])
+  }, [])
 
   const logout = () => {
     setToken(null)
@@ -30,6 +30,7 @@ const App = () => {
         <button onClick={() => setPage('authors')}>authors</button>
         <button onClick={() => setPage('books')}>books</button>
         <button style={showWhenLoggedIn} onClick={() => setPage('add')}>add book</button>
+        <button style={showWhenLoggedIn} onClick={() => setPage('recommend')}>recommend</button>
         <button style={showWhenLoggedOut} onClick={() => setPage('login')}>login</button>
         <button style={showWhenLoggedIn} onClick={logout}>logout</button>
       </div>
@@ -41,6 +42,10 @@ const App = () => {
 
       <Books
         show={page === 'books'}
+      />
+
+      <RecommendedBooks
+        show={page === 'recommend'}
       />
 
       <NewBook

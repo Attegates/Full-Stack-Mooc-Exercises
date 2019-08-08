@@ -4,7 +4,7 @@ import queries from '../graphql/queries'
 import { genres } from '../constants/genres'
 import { useApolloClient } from '@apollo/react-hooks'
 import { gql } from "apollo-boost"
-
+import BookList from './BookList'
 
 
 const Books = (props) => {
@@ -49,26 +49,9 @@ const Books = (props) => {
           <option key={g} value={g}>{g}</option>
         )}
       </select>
-      <table>
-        <tbody>
-          <tr>
-            <th></th>
-            <th>
-              author
-            </th>
-            <th>
-              published
-            </th>
-          </tr>
-          {filteredBooks.map(b =>
-            <tr key={b.title}>
-              <td>{b.title}</td>
-              <td>{b.author.name}</td>
-              <td>{b.published}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <BookList
+        books={filteredBooks}
+      />
     </div>
   )
 }
